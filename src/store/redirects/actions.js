@@ -5,7 +5,6 @@ export function fetchRedirects() {
     return async (dispatch, state) => {
         try {
             let redirects = (await redirectService.fetchRedirects());
-            console.log(redirects)
             const redirectsByPath = redirects.reduce((obj, item) => {
                 obj[item.path] = item;
                 return obj

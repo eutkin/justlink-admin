@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import Table from "react-bootstrap/Table";
+
+class TableView extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -7,27 +10,25 @@ import React, {Component} from 'react';
 
     render() {
         return (
-            <Paper>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {Object.keys(this.props.data).map(this.renderRowByPath.bind(this))}
-                    </TableBody>
-                </Table>
-            </Paper>
+            <Table striped bordered hover responsive>
+                <thead>
+                <tr>
+                    {Object.keys(this.props.data['stoloto']).map((key, index) => <td key={index}>{key}</td>)}
+                </tr>
+                </thead>
+                <tbody>
+                {Object.keys(this.props.data).map(this.renderRowByPath.bind(this))}
+                </tbody>
+            </Table>
         )
     }
 
     renderRowByPath(path) {
         const row = this.props.data[path];
         return (
-            <TableRow key={path}>
+            <tr key={path}>
                 {Object.values(row).map(this.renderCell.bind(this))}
-            </TableRow>
+            </tr>
         )
     }
 
@@ -41,6 +42,9 @@ import React, {Component} from 'react';
         } else {
             valueElement = value
         }
-        return <TableCell key={index}>{valueElement}</TableCell>
+        return <td style={{height: "auto"}} key={index}>{valueElement}</td>
     }
+
 }
+
+export default TableView

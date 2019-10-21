@@ -12,7 +12,8 @@ class RedirectService {
                     return {
                         ...redirect,
                         destinations: this.mapDestination(redirect['destinations']),
-                        defaultDestination: this.mapDestination(redirect['defaultDestination'])
+                        defaultDestination: this.mapDestination(redirect['defaultDestination']),
+                        random: redirect['random'].toString()
                     }
                 })
             );
