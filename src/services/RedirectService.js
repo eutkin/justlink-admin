@@ -1,14 +1,26 @@
 class RedirectService {
     async fetchRedirects() {
-        const response = await fetch("http://localhost:8800/api/redirect", {
+        return await fetch("http://localhost:8800/api/redirect", {
             method: 'GET',
-            mode: 'no-cors',
             headers: {
                 Accept: 'application/json'
             }
-        });
-        const data = await response.json();
-        return data;
+        })
+            .then(response => response.json())
+            .then(body => body
+                .map(redirect => {
+                    return {
+                        ...redirect,
+                        destinations: this.mapDestination(redirect['destinations']),
+                        defaultDestination: this.mapDestination(redirect['defaultDestination'])
+                    }
+                })
+            );
+    }
+
+    mapDestination(destination) {
+        return destination.url
     }
 }
+
 export default new RedirectService();
